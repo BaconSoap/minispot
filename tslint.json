@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "jsx-no-string-ref": true,
+    "jsx-self-close": true,
+    "jsx-wrap-multiline": true
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
+  }
+}
