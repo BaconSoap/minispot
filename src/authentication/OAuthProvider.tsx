@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import { parse, stringify } from 'qs';
 import * as React from 'react';
 
@@ -9,8 +8,9 @@ export type OAuthProviderProps = {
   clientId: string;
   redirectUri: string;
   state?: any;
-  component?: React.ComponentType<ProviderRenderProps>;
+  component: React.ComponentType<ProviderRenderProps>;
   scope: string[]
+  onAuthenticated: (token: AccessToken) => void;
 };
 
 export type AccessToken = {
@@ -19,25 +19,8 @@ export type AccessToken = {
   tokenType: 'Bearer';
 }
 
-export type OAuthProviderStateUnauthenticated = {
-  isAuthenticated: false;
-};
+export class OAuthProvider extends React.Component<OAuthProviderProps> {
 
-export type OAuthProviderStateAuthenticated = {
-  isAuthenticated: true;
-  userInfo: any;
-}
-
-export type OAuthProviderState = OAuthProviderStateAuthenticated | OAuthProviderStateUnauthenticated;
-
-export class OAuthProvider extends React.Component<OAuthProviderProps, OAuthProviderState> {
-  public constructor(props: OAuthProviderProps) {
-    super(props);
-
-    this.state = {
-      isAuthenticated: false,
-    };
-  }
   public async componentDidMount() {
     if (location.hash[0] !== '#') { return; }
     const hash = location.hash.split('#');
@@ -48,17 +31,12 @@ export class OAuthProvider extends React.Component<OAuthProviderProps, OAuthProv
       tokenType: 'Bearer',
     }
 
-    const res = await Axios.get('https://api.spotify.com/v1/me', {
-      headers: {
-        'Authorization': `${normalized.tokenType} ${normalized.token}`
-      }
-    });
-
-    this.setState({ isAuthenticated: true, userInfo: JSON.stringify(res.data) });
     history.pushState('', document.title, window.location.pathname + window.location.search);
+    this.props.onAuthenticated(normalized);
   }
+
   public render() {
-    const { clientId, redirectUri, authorizeUrl, scope } = this.props;
+    const { clientId, redirectUri, authorizeUrl, scope, component } = this.props;
 
     const authParams = {
       client_id: clientId,
@@ -68,12 +46,8 @@ export class OAuthProvider extends React.Component<OAuthProviderProps, OAuthProv
     };
 
     const url = `${authorizeUrl}?${stringify(authParams)}`;
-
-    return (
-      <>
-        <a href={url}>Click to authorize</a>
-        <div>{this.state.isAuthenticated ? '(' + this.state.userInfo.toString() + ')' : ''}</div>
-      </>
-    );
+    return React.createElement(component, {
+      url
+    })
   }
 }

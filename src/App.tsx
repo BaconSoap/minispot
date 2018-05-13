@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import { AuthControllerContainer } from './authentication/AuthController';
-import { clientId } from './secrets';
 import { createAppStore } from './store/createAppStore';
 
 class App extends React.Component {
@@ -15,7 +14,6 @@ class App extends React.Component {
             <header className='App-header'>
               <h1 className='App-title'>MiniSpot</h1>
             </header>
-            secret: {clientId}
             <AuthControllerContainer />
           </div>
         </BrowserRouter>
