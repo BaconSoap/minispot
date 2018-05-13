@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/qs": "^6.5.1",
     "@types/react-redux": "^6.0.0",
     "@types/react-router-dom": "^4.2.6",
     "@types/redux": "^3.6.0",
+    "axios": "^0.18.0",
     "node-sass": "^4.9.0",
+    "qs": "^6.5.2",
     "react": "^16.3.2",
     "react-app-rewired": "^1.5.2",
     "react-dom": "^16.3.2",

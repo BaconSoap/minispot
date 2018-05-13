@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { OauthSender } from 'react-oauth-flow';
 import { connect } from 'react-redux';
 import { AppState } from '../AppState';
-import { clientId } from '../secrets';
+import { clientId as secretClientId } from '../secrets';
+import { OAuthProvider } from './OAuthProvider';
 
 type AuthControllerProps = {
   isAuthenticated: boolean;
@@ -13,22 +13,24 @@ export class AuthController extends React.PureComponent<AuthControllerProps> {
     return (
       <div>
         Is Authenticated: {this.props.isAuthenticated.toString()}
-        <OauthSender
-          clientId={clientId}
+        <OAuthProvider
+          clientId={secretClientId}
           authorizeUrl='https://accounts.spotify.com/authorize'
           redirectUri='http://localhost:3000'
-          args={{
-            scope: 'user-read-private user-read-email'
-          }}
-          // tslint:disable-next-line:jsx-no-lambda
-          render={(props: any) => (
-            <a href={props.url}>Authenticate</a>
-          )}
+          scope={['user-read-private', 'user-read-email']}
+          component={AuthLink}
         />
       </div>
     );
   }
 }
+
+
+const AuthLink = (props: { url: string }) => (
+  <div>
+    <a href={props.url}>Authenticate</a>
+  </div>
+);
 
 const mapState = (state: AppState): AuthControllerProps => ({
   isAuthenticated: state.authentication.isAuthenticated

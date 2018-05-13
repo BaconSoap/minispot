@@ -12,7 +12,8 @@
     "jsx-no-string-ref": true,
     "jsx-self-close": true,
     "jsx-wrap-multiline": true,
-    "interface-over-type-literal": false
+    "interface-over-type-literal": false,
+    "max-classes-per-file": false
   },
   "linterOptions": {
     "exclude": [
