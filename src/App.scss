@@ -1,3 +1,20 @@
+@import '../node_modules/normalize-scss/sass/normalize/import-now';
+
+$padding-xs: 8px;
+$padding-sm: 12px;
+$padding-md: 16px;
+$padding-lg: 24px;
+
+$gray-dark: rgb(32, 32, 32);
+$white-dark: rgb(204, 204, 204);
+
 body {
-  background-color: orange;
+  background-color: $gray-dark;
+  color: $white-dark;
+  padding: $padding-lg;
+}
+
+a {
+  color: orangered;
+  font-weight: bold;
 }
