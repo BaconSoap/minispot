@@ -1,33 +1,26 @@
-import Axios from 'axios';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../AppState';
 import { clientId as secretClientId } from '../secrets';
-import { AccessToken, OAuthProvider } from './OAuthProvider';
+import { authenticationSucceeded, loadUserInfo } from './AuthActions';
+import { OAuthProvider } from './OAuthProvider';
+import { AccessToken, UserInfoDto } from './types';
 
-type AuthControllerProps = {
-  isAuthenticated: boolean;
-}
-
-export type AuthControllerStateUnauthenticated = {
-  isAuthenticated: false;
+const actions = {
+  authenticationSucceeded,
+  loadUserInfo,
 };
 
-export type AuthControllerStateAuthenticated = {
-  isAuthenticated: true;
-  userInfo: any;
+type AuthControllerProps = {
+  accessToken: null | AccessToken;
+  isAuthenticated: boolean;
+  userInfo: UserInfoDto | null;
 }
 
-export type AuthControllerState = AuthControllerStateAuthenticated | AuthControllerStateUnauthenticated;
+export class AuthController extends React.PureComponent<AuthControllerProps & typeof actions> {
 
-
-export class AuthController extends React.PureComponent<AuthControllerProps, AuthControllerState> {
-
-  public constructor(props: AuthControllerProps) {
+  public constructor(props: AuthControllerProps & typeof actions) {
     super(props);
-    this.state = {
-      isAuthenticated: false
-    };
 
     this.onAuthenticated = this.onAuthenticated.bind(this);
   }
@@ -35,7 +28,7 @@ export class AuthController extends React.PureComponent<AuthControllerProps, Aut
   public render() {
     return (
       <div>
-        Is Authenticated: {this.state.isAuthenticated.toString()}
+        Is Authenticated: {this.props.isAuthenticated.toString()}
         <OAuthProvider
           clientId={secretClientId}
           authorizeUrl='https://accounts.spotify.com/authorize'
@@ -44,23 +37,16 @@ export class AuthController extends React.PureComponent<AuthControllerProps, Aut
           component={AuthLink}
           onAuthenticated={this.onAuthenticated}
         />
-        {this.state.isAuthenticated ? <pre>{this.state.userInfo}</pre> : null}
+        {this.props.isAuthenticated ? <pre>{JSON.stringify(this.props.userInfo)}</pre> : null}
       </div>
     );
   }
 
   private async onAuthenticated(token: AccessToken) {
-    const res = await Axios.get('https://api.spotify.com/v1/me', {
-      headers: {
-        'Authorization': `${token.tokenType} ${token.token}`
-      }
-    });
-
-    this.setState({ isAuthenticated: true, userInfo: JSON.stringify(res.data, undefined, 2) });
+    this.props.authenticationSucceeded(token);
+    this.props.loadUserInfo(token);
   }
-
 }
-
 
 const AuthLink = (props: { url: string }) => (
   <div>
@@ -69,7 +55,9 @@ const AuthLink = (props: { url: string }) => (
 );
 
 const mapState = (state: AppState): AuthControllerProps => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  accessToken: state.authentication.accessToken,
+  isAuthenticated: state.authentication.isAuthenticated,
+  userInfo: state.authentication.userInfo,
 });
 
-export const AuthControllerContainer = connect(mapState)(AuthController);
+export const AuthControllerContainer = connect(mapState, actions)(AuthController);

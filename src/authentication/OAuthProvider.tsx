@@ -1,5 +1,6 @@
 import { parse, stringify } from 'qs';
 import * as React from 'react';
+import { AccessToken } from './types';
 
 export type ProviderRenderProps = { url: string };
 
@@ -12,12 +13,6 @@ export type OAuthProviderProps = {
   scope: string[]
   onAuthenticated: (token: AccessToken) => void;
 };
-
-export type AccessToken = {
-  token: string;
-  expiresInSeconds: number;
-  tokenType: 'Bearer';
-}
 
 export class OAuthProvider extends React.Component<OAuthProviderProps> {
 
