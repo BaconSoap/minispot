@@ -37,7 +37,7 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
           component={AuthLink}
           onAuthenticated={this.onAuthenticated}
         />
-        {this.props.isAuthenticated ? <pre>{JSON.stringify(this.props.userInfo)}</pre> : null}
+        {this.props.isAuthenticated ? <pre>{JSON.stringify(this.props.userInfo, undefined, 2)}</pre> : null}
       </div>
     );
   }
