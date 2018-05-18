@@ -1,0 +1,17 @@
+.minispot-controls {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .minispot-control {
+    align-items: center;
+    background-color: $black;
+    border: 1px solid $gray-dark;
+    display: flex;
+    height: $control-size;
+    justify-content: center;
+    width: $control-size;
+  }
+}

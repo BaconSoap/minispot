@@ -1,13 +1,5 @@
 @import '../node_modules/normalize-scss/sass/normalize/import-now';
-
-$padding-xs: 8px;
-$padding-sm: 12px;
-$padding-md: 16px;
-$padding-lg: 24px;
-
-$gray-dark: rgb(32, 32, 32);
-$gray-darker: rgb(16, 16, 16);
-$white-dark: rgb(204, 204, 204);
+@import 'variables';
 
 * {
   box-sizing: border-box;
@@ -24,51 +16,5 @@ a {
   font-weight: bold;
 }
 
-.minispot-player {
-  $base-size: 300px;
-  $control-panel-size: $base-size / 4;
-  $control-size: 64px;
-
-  background-color: $gray-darker;
-  display: flex;
-  flex-direction: column;
-  height: $base-size + $control-panel-size;
-  width: $base-size;
-
-  .song-info {
-    align-items: flex-end;
-    border-bottom: 1px solid $gray-dark;
-    display: flex;
-    flex: 4;
-    justify-content: space-around;
-    position: relative;
-
-    &__album-art {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 80%;
-      filter: blur(2px);
-      height: 100%;
-      position: absolute;
-      width: 100%;
-    }
-  }
-
-  .minispot-controls {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-around;
-
-    .minispot-control {
-      align-items: center;
-      background-color: black;
-      border: 1px solid $gray-dark;
-      display: flex;
-      height: $control-size;
-      justify-content: center;
-      width: $control-size;
-    }
-  }
-}
+@import 'player/Player';
+@import 'player/ControlPanel';

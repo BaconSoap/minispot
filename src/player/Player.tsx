@@ -1,6 +1,6 @@
-import { Icon } from 'components/Icon';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { ControlPanel } from './ControlPanel';
 
 export class Player extends React.PureComponent {
   public render() {
@@ -16,17 +16,7 @@ export class Player extends React.PureComponent {
           <div className='song-info__album'>Blackstar</div>
           <div className='song-info__artist'>David Bowie</div>
         </div>
-        <div className='minispot-controls'>
-          <div className='minispot-control minispot-controls__previous'>
-            <Icon type='step-backward' title='Step Backward' size='2x' />
-          </div>
-          <div className='minispot-control minispot-controls__pause-play'>
-            <Icon type='pause' title='Pause' size='2x' />
-          </div>
-          <div className='minispot-control minispot-controls__next'>
-            <Icon type='step-forward' title='Skip Song' size='2x' />
-          </div>
-        </div>
+        <ControlPanel />
       </div>
     );
   }

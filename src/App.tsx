@@ -1,10 +1,10 @@
 import { AuthControllerContainer } from 'authentication/AuthController';
+import { PlayerContainer } from 'player/Player';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { createAppStore } from 'store/createAppStore';
 import './App.scss';
-import { createAppStore } from './store/createAppStore';
-import { PlayerContainer } from './store/Player';
 
 class App extends React.Component {
   public render() {
