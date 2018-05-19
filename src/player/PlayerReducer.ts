@@ -1,12 +1,18 @@
 import { Action, ActionWithoutPayload, ReducerMap } from 'helpers';
-import { PLAYER_READY } from './PlayerConstants';
+import { DeviceIdPayload } from './PlayerActions';
+import { PLAYER_READY, SET_DEVICE_ID } from './PlayerConstants';
 import { PlayerState } from './PlayerState';
 
 const reducers: ReducerMap<PlayerState> = {
   [PLAYER_READY]: (state: PlayerState, action: ActionWithoutPayload): PlayerState => ({
     ...state,
     isReady: true
-  })
+  }),
+  [SET_DEVICE_ID]: (state: PlayerState, action: Action<DeviceIdPayload>): PlayerState => ({
+    ...state,
+    currentPlaybackDeviceId: action.payload,
+    localDeviceId: action.payload,
+  }),
 };
 
 const defaultState: PlayerState = {

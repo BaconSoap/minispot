@@ -1,7 +1,12 @@
 import { AppState } from 'AppState';
 import { AccessToken } from 'authentication/types';
+import { setDeviceId } from 'player/PlayerActions';
 import * as React from 'react';
 import { connect } from 'react-redux';
+
+const actions = {
+  setDeviceId
+};
 
 export type SpotifyPlaybackManagerProps = {
   isReady: boolean;
@@ -9,9 +14,9 @@ export type SpotifyPlaybackManagerProps = {
   isPremium: boolean;
 };
 
-export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManagerProps, { isConnected: boolean }> {
+export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManagerProps & typeof actions, { isConnected: boolean }> {
 
-  public constructor(p: SpotifyPlaybackManagerProps) {
+  public constructor(p: SpotifyPlaybackManagerProps & typeof actions) {
     super(p);
 
     this.state = {
@@ -41,6 +46,7 @@ export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManag
     player.addListener('ready', ({ device_id }) => {
       // tslint:disable-next-line:no-console
       console.log('Ready with Device ID', device_id);
+      this.props.setDeviceId(device_id);
     });
     player.connect();
 
@@ -67,4 +73,4 @@ const mapState = (state: AppState): SpotifyPlaybackManagerProps => ({
   isReady: state.player.isReady,
 });
 
-export const SpotifyPlaybackManagerContainer = connect(mapState)(SpotifyPlaybackManager);
+export const SpotifyPlaybackManagerContainer = connect(mapState, actions)(SpotifyPlaybackManager);

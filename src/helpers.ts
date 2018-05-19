@@ -1,3 +1,5 @@
+import { AccessToken } from 'authentication/types';
+
 export type Action<T> = {
   type: string;
   payload: T;
@@ -41,3 +43,10 @@ export function objectToArray<T>(obj: IdMap<T>): T[] {
   return Object.keys(obj).map(key => obj[key]);
 }
 
+export const getAxiosConfig = (token: AccessToken) => ({
+  headers: {
+    'Authorization': `${token.tokenType} ${token.token}`
+  }
+});
+
+export const baseSpotifyUri = 'https://api.spotify.com/v1';

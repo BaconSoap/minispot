@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ControlPanel } from './ControlPanel';
+import { ControlPanelContainer } from './ControlPanel';
 
 export class Player extends React.PureComponent {
   public render() {
@@ -16,7 +16,7 @@ export class Player extends React.PureComponent {
           <div className='song-info__album'>Blackstar</div>
           <div className='song-info__artist'>David Bowie</div>
         </div>
-        <ControlPanel />
+        <ControlPanelContainer />
       </div>
     );
   }
