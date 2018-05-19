@@ -10,7 +10,9 @@ const reducers: ReducerMap<PlayerState> = {
 };
 
 const defaultState: PlayerState = {
-  isReady: false
+  currentPlaybackDeviceId: null,
+  isReady: false,
+  localDeviceId: null,
 };
 
 export function reducer(state: PlayerState = defaultState, action: Action<any>) {
