@@ -27,4 +27,4 @@ export const Icon = ({ type, className, title, size }: IconProps) => (
     className={`icon fas fa-${type}${className ? ' ' + className : ''}${size ? ' fa-' + size : ''}`}
     title={title}
   />
-)
+);

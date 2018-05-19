@@ -25,6 +25,12 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
     this.onAuthenticated = this.onAuthenticated.bind(this);
   }
 
+  public componentDidMount() {
+    if (this.props.accessToken && !this.props.userInfo) {
+      this.props.loadUserInfo(this.props.accessToken);
+    }
+  }
+
   public render() {
     return (
       <div>

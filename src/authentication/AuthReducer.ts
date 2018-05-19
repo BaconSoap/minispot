@@ -19,7 +19,7 @@ const reducers: ReducerMap<AuthState> = {
   ),
 };
 
-const defaultState: AuthState = {
+export const defaultState: AuthState = {
   accessToken: null,
   isAuthenticated: false,
   userInfo: null,
