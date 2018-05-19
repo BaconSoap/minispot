@@ -19,8 +19,8 @@ export type ControlPanelProps = {
 
 export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof actions> {
   public render() {
-
     const pausePlayIcon = this.props.isPaused ? 'play' : 'pause';
+
     return (
       <div className='minispot-controls'>
         <div className='minispot-control minispot-controls__previous'>
@@ -44,7 +44,7 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
 
     if (!trackInfo) {
       // Little Secrets (Passion Pit - Manners)
-      this.props.playUris(deviceId, ['spotify:track:3kb38wezoUA8ki5jPYy3t5']);
+      this.props.playUris(deviceId, ['spotify:track:3kb38wezoUA8ki5jPYy3t5'], 'spotify:album:6H51jH1SuzV6ca1VxW2Tmv');
       return;
     }
 

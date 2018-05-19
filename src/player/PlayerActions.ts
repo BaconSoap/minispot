@@ -23,10 +23,25 @@ export const playUris = (deviceId: string, uris?: string[], contextUri?: string)
       });
     }
 
-    await Axios.put(`${baseSpotifyUri}/me/player/play`, {
-      context_udi: contextUri,
-      uris
-    }, {
+    let body: any = {};
+
+    if (contextUri && uris && uris.length === 1) {
+      body = {
+        context_uri: contextUri,
+        offset: {
+          uri: uris[0]
+        }
+      };
+    } else {
+      body = {
+        context_uri: contextUri,
+        uris
+      };
+    }
+
+    await Axios.put(`${baseSpotifyUri}/me/player/play`,
+      body,
+      {
         ...getAxiosConfig(accessToken),
         params: {
           device_id: deviceId
