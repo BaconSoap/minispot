@@ -17,11 +17,20 @@ export const loadUserInfo = (token: AccessToken) => (
       }
     });
 
+    const res2 = await Axios.get('https://api.spotify.com/v1/me/player', {
+      headers: {
+        'Authorization': `${token.tokenType} ${token.token}`
+      }
+    });
+
+    // tslint:disable-next-line:no-console
+    console.log(res2);
+
     const userInfo = res.data as UserInfoDto;
 
     dispatch({
       payload: userInfo,
       type: USER_INFO_LOADED,
-    })
+    });
   }
-)
+);

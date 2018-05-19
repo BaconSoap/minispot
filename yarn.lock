@@ -73,6 +73,10 @@
   dependencies:
     redux "*"
 
+"@types/spotify-web-playback-sdk@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@types/spotify-web-playback-sdk/-/spotify-web-playback-sdk-0.1.2.tgz#fd47c19dd91936af073a6625ff037045da8ff828"
+
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"

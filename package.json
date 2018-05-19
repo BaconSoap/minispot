@@ -7,6 +7,7 @@
     "@types/react-redux": "^6.0.0",
     "@types/react-router-dom": "^4.2.6",
     "@types/redux": "^3.6.0",
+    "@types/spotify-web-playback-sdk": "^0.1.2",
     "axios": "^0.18.0",
     "node-sass": "^4.9.0",
     "normalize-scss": "^7.0.1",

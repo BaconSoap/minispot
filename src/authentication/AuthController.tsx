@@ -15,7 +15,7 @@ type AuthControllerProps = {
   accessToken: null | AccessToken;
   isAuthenticated: boolean;
   userInfo: UserInfoDto | null;
-}
+};
 
 export class AuthController extends React.PureComponent<AuthControllerProps & typeof actions> {
 
@@ -33,7 +33,7 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
           clientId={secretClientId}
           authorizeUrl='https://accounts.spotify.com/authorize'
           redirectUri='http://localhost:3000'
-          scope={['user-read-private', 'user-read-email']}
+          scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state']}
           component={AuthLink}
           onAuthenticated={this.onAuthenticated}
         />

@@ -24,7 +24,7 @@ export class OAuthProvider extends React.Component<OAuthProviderProps> {
       expiresInSeconds: parseInt(parsed.expires_in, 10),
       token: parsed.access_token,
       tokenType: 'Bearer',
-    }
+    };
 
     history.pushState('', document.title, window.location.pathname + window.location.search);
     this.props.onAuthenticated(normalized);
@@ -43,6 +43,6 @@ export class OAuthProvider extends React.Component<OAuthProviderProps> {
     const url = `${authorizeUrl}?${stringify(authParams)}`;
     return React.createElement(component, {
       url
-    })
+    });
   }
 }
