@@ -1,6 +1,6 @@
 import { Action, ActionWithoutPayload, ReducerMap } from 'helpers';
-import { DeviceIdPayload } from './PlayerActions';
-import { PLAYER_READY, SET_DEVICE_ID } from './PlayerConstants';
+import { DeviceIdPayload, PlayStatePayload } from './PlayerActions';
+import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE } from './PlayerConstants';
 import { PlayerState } from './PlayerState';
 
 const reducers: ReducerMap<PlayerState> = {
@@ -13,10 +13,19 @@ const reducers: ReducerMap<PlayerState> = {
     currentPlaybackDeviceId: action.payload,
     localDeviceId: action.payload,
   }),
+  [SET_PLAY_STATE]: (state: PlayerState, { payload }: Action<PlayStatePayload>): PlayerState => ({
+    ...state,
+    currentTrackInfo: {
+      trackName: payload.trackName
+    },
+    isPlaying: payload.isPlaying,
+  })
 };
 
 const defaultState: PlayerState = {
   currentPlaybackDeviceId: null,
+  currentTrackInfo: null,
+  isPlaying: false,
   isReady: false,
   localDeviceId: null,
 };
