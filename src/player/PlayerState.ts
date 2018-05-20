@@ -3,7 +3,14 @@ export type PlayerState = {
   localDeviceId: string | null;
   currentPlaybackDeviceId: string | null;
   playState: PlayState;
-  currentTrackInfo: { trackName: string } | null;
+  currentTrackInfo: TrackInfo | null;
 };
 
 export type PlayState = 'playing' | 'paused' | 'stopped';
+
+export type TrackInfo = {
+  name: string;
+  artist: string;
+  album: string;
+  imageUri: string;
+};

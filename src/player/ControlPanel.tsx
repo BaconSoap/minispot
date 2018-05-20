@@ -3,7 +3,7 @@ import { Icon } from 'components/Icon';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { pause, playUris } from './PlayerActions';
-import { PlayState } from './PlayerState';
+import { PlayState, TrackInfo } from './PlayerState';
 
 const actions = {
   pause,
@@ -13,10 +13,9 @@ const actions = {
 export type ControlPanelProps = {
   deviceId: string | null;
   isReady: boolean;
-  trackInfo: { trackName: string } | null;
+  trackInfo: TrackInfo | null;
   playState: PlayState;
 };
-
 
 export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof actions> {
   public render() {

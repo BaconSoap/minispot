@@ -1,17 +1,21 @@
 import { AppState } from 'AppState';
 import { AccessToken } from 'authentication/types';
-import { setDeviceId } from 'player/PlayerActions';
+import { shallowEquals, spotifyTrackToTrackInfo } from 'helpers';
+import { setDeviceId, setTrackInfo } from 'player/PlayerActions';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { TrackInfo } from './PlayerState';
 
 const actions = {
-  setDeviceId
+  setDeviceId,
+  setTrackInfo,
 };
 
 export type SpotifyPlaybackManagerProps = {
-  isReady: boolean;
   accessToken: AccessToken | null;
+  currentTrackInfo: TrackInfo | null;
   isPremium: boolean;
+  isReady: boolean;
 };
 
 export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManagerProps & typeof actions, { isConnected: boolean }> {
@@ -42,7 +46,7 @@ export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManag
     });
 
     // tslint:disable-next-line:no-console
-    player.addListener('player_state_changed', state => { console.log(state); });
+    player.addListener('player_state_changed', this.handleStateChange);
     player.addListener('ready', ({ device_id }) => {
       // tslint:disable-next-line:no-console
       console.log('Ready with Device ID', device_id);
@@ -65,10 +69,19 @@ export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManag
       </>
     );
   }
+
+  private handleStateChange = (state: Spotify.PlaybackState) => {
+    const newInfo = spotifyTrackToTrackInfo(state.track_window.current_track);
+
+    if (!shallowEquals(this.props.currentTrackInfo, newInfo)) {
+      this.props.setTrackInfo(newInfo);
+    }
+  }
 }
 
 const mapState = (state: AppState): SpotifyPlaybackManagerProps => ({
   accessToken: state.authentication.accessToken,
+  currentTrackInfo: state.player.currentTrackInfo,
   isPremium: state.authentication.userInfo ? state.authentication.userInfo.product === 'premium' : false,
   isReady: state.player.isReady,
 });

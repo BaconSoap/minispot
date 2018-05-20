@@ -1,4 +1,5 @@
 import { AccessToken } from 'authentication/types';
+import { TrackInfo } from 'player/PlayerState';
 
 export type Action<T> = {
   type: string;
@@ -50,3 +51,42 @@ export const getAxiosConfig = (token: AccessToken) => ({
 });
 
 export const baseSpotifyUri = 'https://api.spotify.com/v1';
+
+export const spotifyTrackToTrackInfo = (spotifyTrack: Spotify.Track): TrackInfo => ({
+  album: spotifyTrack.album.name,
+  artist: spotifyTrack.artists[0].name,
+  imageUri: spotifyTrack.album.images[0].url,
+  name: spotifyTrack.name
+});
+
+export const shallowEquals = <T>(a: T, b: T) => {
+  if (a === null && b !== null) {
+    return false;
+  }
+
+  if (b === null && a !== null) {
+    return false;
+  }
+
+  if (a === undefined && b !== undefined) {
+    return false;
+  }
+
+  if (b === undefined && a !== undefined) {
+    return false;
+  }
+
+  for (const key in a) {
+    if (a[key] !== b[key]) {
+      return false;
+    }
+  }
+
+  for (const key in b) {
+    if (a[key] !== b[key]) {
+      return false;
+    }
+  }
+
+  return true;
+};

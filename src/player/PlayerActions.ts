@@ -2,8 +2,8 @@ import { AppState } from 'AppState';
 import Axios from 'axios';
 import { Action, ActionWithoutPayload, baseSpotifyUri, getAxiosConfig } from 'helpers';
 import { Dispatch } from 'react-redux';
-import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE } from './PlayerConstants';
-import { PlayState } from './PlayerState';
+import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE, SET_TRACK_INFO } from './PlayerConstants';
+import { PlayState, TrackInfo } from './PlayerState';
 
 export const playerReady = (): ActionWithoutPayload => ({
   type: PLAYER_READY
@@ -71,6 +71,11 @@ export const pause = () => {
   };
 };
 
+export type TrackInfoPayload = TrackInfo;
+export const setTrackInfo = (info: TrackInfo): Action<TrackInfoPayload> => ({
+  payload: info,
+  type: SET_TRACK_INFO,
+});
 
 export type DeviceIdPayload = string;
 export const setDeviceId = (deviceId: string) => ({
