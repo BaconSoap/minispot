@@ -15,19 +15,16 @@ const reducers: ReducerMap<PlayerState> = {
   }),
   [SET_PLAY_STATE]: (state: PlayerState, { payload }: Action<PlayStatePayload>): PlayerState => ({
     ...state,
-    currentTrackInfo: {
-      trackName: payload.trackName
-    },
-    isPlaying: payload.isPlaying,
+    playState: payload,
   })
 };
 
 const defaultState: PlayerState = {
   currentPlaybackDeviceId: null,
   currentTrackInfo: null,
-  isPlaying: false,
   isReady: false,
   localDeviceId: null,
+  playState: 'stopped',
 };
 
 export function reducer(state: PlayerState = defaultState, action: Action<any>) {

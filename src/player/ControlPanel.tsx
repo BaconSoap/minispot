@@ -3,6 +3,7 @@ import { Icon } from 'components/Icon';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { pause, playUris } from './PlayerActions';
+import { PlayState } from './PlayerState';
 
 const actions = {
   pause,
@@ -13,13 +14,13 @@ export type ControlPanelProps = {
   deviceId: string | null;
   isReady: boolean;
   trackInfo: { trackName: string } | null;
-  isPaused: boolean;
+  playState: PlayState;
 };
 
 
 export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof actions> {
   public render() {
-    const pausePlayIcon = this.props.isPaused ? 'play' : 'pause';
+    const pausePlayIcon = this.props.playState !== 'playing' ? 'play' : 'pause';
 
     return (
       <div className='minispot-controls'>
@@ -37,18 +38,18 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
   }
 
   private onPlay = () => {
-    const { isReady, deviceId, trackInfo, isPaused } = this.props;
+    const { isReady, deviceId, playState } = this.props;
     if (!(isReady && deviceId)) {
       return;
     }
 
-    if (!trackInfo) {
+    if (playState === 'stopped') {
       // Little Secrets (Passion Pit - Manners)
       this.props.playUris(deviceId, ['spotify:track:3kb38wezoUA8ki5jPYy3t5'], 'spotify:album:6H51jH1SuzV6ca1VxW2Tmv');
       return;
     }
 
-    if (!isPaused) {
+    if (playState === 'playing') {
       this.props.pause();
       return;
     }
@@ -59,8 +60,8 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
 
 const mapState = ({ player, authentication }: AppState): ControlPanelProps => ({
   deviceId: player.localDeviceId,
-  isPaused: player.isReady && !player.isPlaying,
   isReady: authentication.isAuthenticated && !!player.localDeviceId,
+  playState: player.playState,
   trackInfo: player.currentTrackInfo,
 });
 

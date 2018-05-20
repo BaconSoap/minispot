@@ -3,16 +3,17 @@ import Axios from 'axios';
 import { Action, ActionWithoutPayload, baseSpotifyUri, getAxiosConfig } from 'helpers';
 import { Dispatch } from 'react-redux';
 import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE } from './PlayerConstants';
+import { PlayState } from './PlayerState';
 
 export const playerReady = (): ActionWithoutPayload => ({
   type: PLAYER_READY
 });
 
-
-export type PlayStatePayload = {
-  isPlaying: boolean;
-  trackName: string;
-};
+export type PlayStatePayload = PlayState;
+export const setPlayState = (state: PlayState): Action<PlayStatePayload> => ({
+  payload: state,
+  type: SET_PLAY_STATE
+});
 
 export const playUris = (deviceId: string, uris?: string[], contextUri?: string) => {
   return async (dispatch: Dispatch, getState: () => AppState) => {
@@ -48,15 +49,7 @@ export const playUris = (deviceId: string, uris?: string[], contextUri?: string)
         }
       });
 
-
-    const action: Action<PlayStatePayload> = {
-      payload: {
-        isPlaying: true,
-        trackName: 'Little Secrets',
-      },
-      type: SET_PLAY_STATE,
-    };
-    return dispatch(action);
+    return dispatch(setPlayState('playing'));
   };
 };
 
@@ -72,13 +65,7 @@ export const pause = () => {
 
     await Axios.put(`${baseSpotifyUri}/me/player/pause`, undefined, getAxiosConfig(accessToken));
 
-    dispatch({
-      payload: {
-        isPlaying: false,
-        trackName: 'Little Secrets',
-      },
-      type: SET_PLAY_STATE
-    });
+    dispatch(setPlayState('paused'));
 
     return;
   };
