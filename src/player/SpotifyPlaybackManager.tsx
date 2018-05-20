@@ -83,7 +83,7 @@ export class SpotifyPlaybackManager extends React.Component<SpotifyPlaybackManag
       this.props.setPlayState('paused');
     }
 
-    if (!state.paused && this.props.playState === 'paused') {
+    if (!state.paused && this.props.playState !== 'playing') {
       this.props.setPlayState('playing');
     }
   }
