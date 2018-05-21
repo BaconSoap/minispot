@@ -20,18 +20,23 @@ export type ControlPanelProps = {
 export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof actions> {
   public render() {
     const pausePlayIcon = this.props.playState !== 'playing' ? 'play' : 'pause';
+    const activeClass = this.props.playState === 'playing' ? 'active' : '';
 
     return (
       <div className='minispot-controls'>
-        <div className='minispot-control minispot-controls__previous'>
+        <button className='minispot-control minispot-controls__previous'>
           <Icon type='step-backward' title='Step Backward' size='2x' />
-        </div>
-        <div className='minispot-control minispot-controls__pause-play'>
-          <a href='javascript:void(0)' onClick={this.onPlay}><Icon type={pausePlayIcon} title='Pause' size='2x' /></a>
-        </div>
-        <div className='minispot-control minispot-controls__next'>
+        </button>
+        <button
+          type='button'
+          className={`minispot-control minispot-controls__pause-play ${activeClass}`}
+          onClick={this.onPlay}
+        >
+          <Icon type={pausePlayIcon} title='Pause' size='2x' />
+        </button>
+        <button className='minispot-control minispot-controls__next'>
           <Icon type='step-forward' title='Skip Song' size='2x' />
-        </div>
+        </button>
       </div>
     );
   }

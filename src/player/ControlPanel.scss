@@ -7,11 +7,23 @@
 
   .minispot-control {
     align-items: center;
-    background-color: $black;
     border: 1px solid $gray-dark;
+    color: $font-color;
+    cursor: pointer;
     display: flex;
     height: $control-size;
     justify-content: center;
+    outline: none;
     width: $control-size;
+
+    &, &.active:active {
+      background-color: $black;
+      border-color: $gray-dark;
+    }
+
+    &:active, &.active {
+      background-color: $gray-dark;
+      border-color: $black;
+    }
   }
 }
