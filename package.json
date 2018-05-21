@@ -25,7 +25,8 @@
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
     "build": "react-app-rewired build --scripts-version react-scripts-ts",
     "test": "react-app-rewired test --scripts-version react-scripts-ts --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "copy": "cp src/secrets.ts.example src/secrets.ts"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
