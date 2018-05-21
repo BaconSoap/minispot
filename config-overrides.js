@@ -1,8 +1,9 @@
 const rewired = require('react-app-rewired');
+const webpack = require('webpack');
 
 module.exports = function override(config, env) {
   //do stuff with the webpack config...
-  return rewireSass(config);
+  return rewireDefinePlugin(rewireSass(config));
 }
 
 /**
@@ -24,5 +25,13 @@ function rewireSass(config) {
   const oneOf = config.module.rules.find(rule => rule.oneOf).oneOf;
   oneOf.unshift(sassLoader);
 
+  return config;
+}
+
+function rewireDefinePlugin(config) {
+  config.plugins.concat(new webpack.DefinePlugin({
+    'process.env.SPOTIFY_KEY': process.env.SPOTIFY_KEY,
+    'process.env.URL': process.env.URL,
+  }));
   return config;
 }
