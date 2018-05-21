@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../AppState';
-import { clientId as secretClientId } from '../secrets';
+import { clientId as secretClientId, redirectUrl } from '../secrets';
 import { authenticationSucceeded, loadUserInfo } from './AuthActions';
 import { OAuthProvider } from './OAuthProvider';
 import { AccessToken, UserInfoDto } from './types';
@@ -38,7 +38,7 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
         <OAuthProvider
           clientId={secretClientId}
           authorizeUrl='https://accounts.spotify.com/authorize'
-          redirectUri='http://localhost:3000'
+          redirectUri={redirectUrl}
           scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state']}
           component={AuthLink}
           onAuthenticated={this.onAuthenticated}
