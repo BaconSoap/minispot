@@ -71,6 +71,41 @@ export const pause = () => {
   };
 };
 
+export const skip = () => {
+  return async (dispatch: Dispatch, getState: () => AppState) => {
+    const accessToken = getState().authentication.accessToken;
+
+    if (!accessToken) {
+      return dispatch({
+        type: 'NOT_AUTHENTICATED'
+      });
+    }
+
+    await Axios.post(`${baseSpotifyUri}/me/player/next`, undefined, getAxiosConfig(accessToken));
+
+    dispatch(setPlayState('playing'));
+    return;
+  };
+};
+
+
+export const previous = () => {
+  return async (dispatch: Dispatch, getState: () => AppState) => {
+    const accessToken = getState().authentication.accessToken;
+
+    if (!accessToken) {
+      return dispatch({
+        type: 'NOT_AUTHENTICATED'
+      });
+    }
+
+    await Axios.post(`${baseSpotifyUri}/me/player/previous`, undefined, getAxiosConfig(accessToken));
+
+    dispatch(setPlayState('playing'));
+    return;
+  };
+};
+
 export type TrackInfoPayload = TrackInfo;
 export const setTrackInfo = (info: TrackInfo): Action<TrackInfoPayload> => ({
   payload: info,

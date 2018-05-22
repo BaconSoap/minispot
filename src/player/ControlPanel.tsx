@@ -2,12 +2,14 @@ import { AppState } from 'AppState';
 import { Icon } from 'components/Icon';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { pause, playUris } from './PlayerActions';
+import { pause, playUris, previous, skip } from './PlayerActions';
 import { PlayState, TrackInfo } from './PlayerState';
 
 const actions = {
   pause,
   playUris,
+  previous,
+  skip,
 };
 
 export type ControlPanelProps = {
@@ -24,7 +26,7 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
 
     return (
       <div className='minispot-controls'>
-        <button className='minispot-control minispot-controls__previous'>
+        <button className='minispot-control minispot-controls__previous' onClick={this.previous}>
           <Icon type='step-backward' title='Step Backward' size='2x' />
         </button>
         <button
@@ -34,7 +36,7 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
         >
           <Icon type={pausePlayIcon} title='Pause' size='2x' />
         </button>
-        <button className='minispot-control minispot-controls__next'>
+        <button className='minispot-control minispot-controls__next' onClick={this.skip}>
           <Icon type='step-forward' title='Skip Song' size='2x' />
         </button>
       </div>
@@ -59,6 +61,18 @@ export class ControlPanel extends React.PureComponent<ControlPanelProps & typeof
     }
 
     this.props.playUris(deviceId);
+  }
+
+  private skip = () => {
+    if (this.props.isReady) {
+      this.props.skip();
+    }
+  }
+
+  private previous = () => {
+    if (this.props.isReady) {
+      this.props.previous();
+    }
   }
 }
 
