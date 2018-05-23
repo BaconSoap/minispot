@@ -12,10 +12,10 @@ export class SongInfo extends React.PureComponent<SongInfoProps> {
     let track = this.props.currentTrack;
     if (!track) {
       track = {
-        album: 'Blackstar',
-        artist: 'David Bowie',
-        imageUri: 'https://i.scdn.co/image/de1c3166528adc912b746cac1f28ccd501801218',
-        name: 'Blackstar'
+        album: 'Manners',
+        artist: 'Passion Pit',
+        imageUri: 'https://i.scdn.co/image/3ff9771d1c9f29990b30b52fc6b5ccb02aeac8e9',
+        name: 'Little Secrets'
       };
     }
 

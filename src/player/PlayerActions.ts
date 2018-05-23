@@ -1,8 +1,9 @@
 import { AppState } from 'AppState';
 import Axios from 'axios';
-import { Action, ActionWithoutPayload, baseSpotifyUri, getAxiosConfig } from 'helpers';
+import { Action, ActionWithoutPayload, baseSpotifyUri, getAxiosConfig, rsaaHeaders } from 'helpers';
 import { Dispatch } from 'react-redux';
-import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE, SET_TRACK_INFO } from './PlayerConstants';
+import { RSAA, RSAAction } from 'redux-api-middleware';
+import { PLAYER_READY, SET_DEVICE_ID, SET_IS_CONNECTED_TO_SPOTIFY, SET_PLAY_STATE, SET_TRACK_INFO } from './PlayerConstants';
 import { PlayState, TrackInfo } from './PlayerState';
 
 export const playerReady = (): ActionWithoutPayload => ({
@@ -71,40 +72,23 @@ export const pause = () => {
   };
 };
 
-export const skip = () => {
-  return async (dispatch: Dispatch, getState: () => AppState) => {
-    const accessToken = getState().authentication.accessToken;
+export const skip = (): RSAAction<'SKIP_REQUEST', 'SKIP_SUCCESS', 'SKIP_FAILURE'> => ({
+  [RSAA]: {
+    endpoint: `${baseSpotifyUri}/me/player/next`,
+    headers: rsaaHeaders,
+    method: 'POST',
+    types: ['SKIP_REQUEST', 'SKIP_SUCCESS', 'SKIP_FAILURE']
+  }
+});
 
-    if (!accessToken) {
-      return dispatch({
-        type: 'NOT_AUTHENTICATED'
-      });
-    }
-
-    await Axios.post(`${baseSpotifyUri}/me/player/next`, undefined, getAxiosConfig(accessToken));
-
-    dispatch(setPlayState('playing'));
-    return;
-  };
-};
-
-
-export const previous = () => {
-  return async (dispatch: Dispatch, getState: () => AppState) => {
-    const accessToken = getState().authentication.accessToken;
-
-    if (!accessToken) {
-      return dispatch({
-        type: 'NOT_AUTHENTICATED'
-      });
-    }
-
-    await Axios.post(`${baseSpotifyUri}/me/player/previous`, undefined, getAxiosConfig(accessToken));
-
-    dispatch(setPlayState('playing'));
-    return;
-  };
-};
+export const previous = (): RSAAction<'PREVIOUS_REQUEST', 'PREVIOUS_SUCCESS', 'PREVIOUS_FAILURE'> => ({
+  [RSAA]: {
+    endpoint: `${baseSpotifyUri}/me/player/previous`,
+    headers: rsaaHeaders,
+    method: 'POST',
+    types: ['PREVIOUS_REQUEST', 'PREVIOUS_SUCCESS', 'PREVIOUS_FAILURE']
+  }
+});
 
 export type TrackInfoPayload = TrackInfo;
 export const setTrackInfo = (info: TrackInfo): Action<TrackInfoPayload> => ({
@@ -116,4 +100,10 @@ export type DeviceIdPayload = string;
 export const setDeviceId = (deviceId: string) => ({
   payload: deviceId,
   type: SET_DEVICE_ID,
+});
+
+export type IsConnectedToSpotifyPayload = boolean;
+export const setIsConnectedToSpotify = (isConnectedToSpotify: boolean): Action<IsConnectedToSpotifyPayload> => ({
+  payload: isConnectedToSpotify,
+  type: SET_IS_CONNECTED_TO_SPOTIFY
 });

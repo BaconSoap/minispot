@@ -4,6 +4,7 @@ export type PlayerState = {
   currentPlaybackDeviceId: string | null;
   playState: PlayState;
   currentTrackInfo: TrackInfo | null;
+  isConnectedToSpotify: boolean;
 };
 
 export type PlayState = 'playing' | 'paused' | 'stopped';

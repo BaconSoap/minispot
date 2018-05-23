@@ -1,5 +1,6 @@
 import { AppState } from 'AppState';
 import { AuthControllerContainer } from 'authentication/AuthController';
+import { DebugInfoContainer } from 'components/DebugInfo';
 import { Player } from 'player/Player';
 import { playerReady } from 'player/PlayerActions';
 import { SpotifyPlaybackManagerContainer } from 'player/SpotifyPlaybackManager';
@@ -27,11 +28,12 @@ class App extends React.Component {
         <BrowserRouter>
           <div className='App'>
             <header className='App-header'>
-              <h1 className='App-title'>MiniSpot</h1>
+              <div className='App-title'><h1>MiniSpot</h1></div>
+              <AuthControllerContainer />
             </header>
             <Player />
+            <DebugInfoContainer />
             <SpotifyPlaybackManagerContainer />
-            <AuthControllerContainer />
           </div>
         </BrowserRouter>
       </Provider>

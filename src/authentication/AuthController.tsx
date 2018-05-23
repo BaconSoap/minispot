@@ -13,7 +13,6 @@ const actions = {
 
 type AuthControllerProps = {
   accessToken: null | AccessToken;
-  isAuthenticated: boolean;
   userInfo: UserInfoDto | null;
 };
 
@@ -33,18 +32,14 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
 
   public render() {
     return (
-      <div>
-        Is Authenticated: {this.props.isAuthenticated.toString()}
-        <OAuthProvider
-          clientId={secretClientId}
-          authorizeUrl='https://accounts.spotify.com/authorize'
-          redirectUri={redirectUrl}
-          scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state']}
-          component={AuthLink}
-          onAuthenticated={this.onAuthenticated}
-        />
-        {this.props.isAuthenticated ? <pre>{JSON.stringify(this.props.userInfo, undefined, 2)}</pre> : null}
-      </div>
+      <OAuthProvider
+        clientId={secretClientId}
+        authorizeUrl='https://accounts.spotify.com/authorize'
+        redirectUri={redirectUrl}
+        scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state']}
+        component={AuthLink}
+        onAuthenticated={this.onAuthenticated}
+      />
     );
   }
 
@@ -55,14 +50,13 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
 }
 
 const AuthLink = (props: { url: string }) => (
-  <div>
+  <div className='authentication-container'>
     <a href={props.url}>Authenticate</a>
   </div>
 );
 
 const mapState = (state: AppState): AuthControllerProps => ({
   accessToken: state.authentication.accessToken,
-  isAuthenticated: state.authentication.isAuthenticated,
   userInfo: state.authentication.userInfo,
 });
 

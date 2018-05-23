@@ -1,3 +1,4 @@
+import { AppState } from 'AppState';
 import { AccessToken } from 'authentication/types';
 import { TrackInfo } from 'player/PlayerState';
 
@@ -49,6 +50,8 @@ export const getAxiosConfig = (token: AccessToken) => ({
     'Authorization': `${token.tokenType} ${token.token}`
   }
 });
+
+export const rsaaHeaders = (state: AppState) => getAxiosConfig(state.authentication.accessToken as AccessToken).headers;
 
 export const baseSpotifyUri = 'https://api.spotify.com/v1';
 

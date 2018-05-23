@@ -16,5 +16,17 @@ a {
   font-weight: bold;
 }
 
+.debug-divider {
+  margin: $padding-lg 0;
+}
+
+.App-header {
+  align-items: center;
+  display: flex;
+  .authentication-container {
+    margin-left: auto;
+  }
+}
+
 @import 'player/Player';
 @import 'player/ControlPanel';

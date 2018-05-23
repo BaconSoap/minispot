@@ -1,6 +1,6 @@
 import { Action, ActionWithoutPayload, ReducerMap } from 'helpers';
-import { DeviceIdPayload, PlayStatePayload, TrackInfoPayload } from './PlayerActions';
-import { PLAYER_READY, SET_DEVICE_ID, SET_PLAY_STATE, SET_TRACK_INFO } from './PlayerConstants';
+import { DeviceIdPayload, IsConnectedToSpotifyPayload, PlayStatePayload, TrackInfoPayload } from './PlayerActions';
+import { PLAYER_READY, SET_DEVICE_ID, SET_IS_CONNECTED_TO_SPOTIFY, SET_PLAY_STATE, SET_TRACK_INFO } from './PlayerConstants';
 import { PlayerState } from './PlayerState';
 
 const reducers: ReducerMap<PlayerState> = {
@@ -21,11 +21,16 @@ const reducers: ReducerMap<PlayerState> = {
     ...state,
     currentTrackInfo: payload
   }),
+  [SET_IS_CONNECTED_TO_SPOTIFY]: (state: PlayerState, { payload }: Action<IsConnectedToSpotifyPayload>): PlayerState => ({
+    ...state,
+    isConnectedToSpotify: payload
+  }),
 };
 
 const defaultState: PlayerState = {
   currentPlaybackDeviceId: null,
   currentTrackInfo: null,
+  isConnectedToSpotify: false,
   isReady: false,
   localDeviceId: null,
   playState: 'stopped',
