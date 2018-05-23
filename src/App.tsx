@@ -26,9 +26,9 @@ class App extends React.Component {
     return (
       <Provider store={this.store}>
         <BrowserRouter>
-          <div className='App'>
-            <header className='App-header'>
-              <div className='App-title'><h1>MiniSpot</h1></div>
+          <div className='app'>
+            <header className='app-header'>
+              <div><h1>MiniSpot</h1></div>
               <AuthControllerContainer />
             </header>
             <Player />

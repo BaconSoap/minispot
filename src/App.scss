@@ -1,5 +1,6 @@
 @import '../node_modules/normalize-scss/sass/normalize/import-now';
 @import 'variables';
+@import 'utilities';
 
 * {
   box-sizing: border-box;
@@ -20,9 +21,10 @@ a {
   margin: $padding-lg 0;
 }
 
-.App-header {
+.app-header {
   align-items: center;
   display: flex;
+
   .authentication-container {
     margin-left: auto;
   }

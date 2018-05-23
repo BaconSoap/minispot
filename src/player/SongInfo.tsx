@@ -21,14 +21,14 @@ export class SongInfo extends React.PureComponent<SongInfoProps> {
 
     return (
       <div className='song-info'>
-        <div className='song-info__album-art'
+        <div className='song-info__album-art z-index-base'
           style={{ backgroundImage: `url(${track.imageUri})` }}
         />
-        <div className='song-info__song'>
+        <div className='song-info__song z-index-low'>
           {track.name}
         </div>
-        <div className='song-info__album'>{track.album}</div>
-        <div className='song-info__artist'>{track.artist}</div>
+        <div className='song-info__album z-index-low'>{track.album}</div>
+        <div className='song-info__artist z-index-low'>{track.artist}</div>
       </div>
     );
   }
