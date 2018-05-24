@@ -38,7 +38,7 @@ export class AuthController extends React.PureComponent<AuthControllerProps & ty
         clientId={secretClientId}
         authorizeUrl='https://accounts.spotify.com/authorize'
         redirectUri={redirectUrl}
-        scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state']}
+        scope={['streaming', 'user-read-birthdate', 'user-read-email', 'user-read-private', 'user-read-playback-state', 'user-top-read']}
         component={AuthLink}
         onAuthenticated={this.onAuthenticated}
       />
