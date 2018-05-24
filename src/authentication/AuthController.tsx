@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { loadUserInfo } from 'user/UserActions';
 import { AppState } from '../AppState';
 import { clientId as secretClientId, redirectUrl } from '../secrets';
-import { authenticationSucceeded, loadUserInfo } from './AuthActions';
+import { authenticationSucceeded } from './AuthActions';
 import { OAuthProvider } from './OAuthProvider';
 import { AccessToken, UserInfoDto } from './types';
 
@@ -57,7 +58,7 @@ const AuthLink = (props: { url: string }) => (
 
 const mapState = (state: AppState): AuthControllerProps => ({
   accessToken: state.authentication.accessToken,
-  userInfo: state.authentication.userInfo,
+  userInfo: state.user.userInfo,
 });
 
 export const AuthControllerContainer = connect(mapState, actions)(AuthController);

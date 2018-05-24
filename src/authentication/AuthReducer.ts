@@ -1,7 +1,7 @@
 import { Action, ReducerMap } from '../helpers';
-import { AUTHENTICATION_SUCCEEDED, USER_INFO_LOADED } from './AuthConstants';
+import { AUTHENTICATION_SUCCEEDED } from './AuthConstants';
 import { AuthState } from './AuthState';
-import { AccessToken, UserInfoDto } from './types';
+import { AccessToken } from './types';
 
 const reducers: ReducerMap<AuthState> = {
   [AUTHENTICATION_SUCCEEDED]: (state: AuthState, action: Action<AccessToken>) => (
@@ -10,19 +10,12 @@ const reducers: ReducerMap<AuthState> = {
       accessToken: action.payload,
       isAuthenticated: true
     }
-  ),
-  [USER_INFO_LOADED]: (state: AuthState, { payload }: Action<UserInfoDto>) => (
-    {
-      ...state,
-      userInfo: payload
-    }
-  ),
+  )
 };
 
 export const defaultState: AuthState = {
   accessToken: null,
   isAuthenticated: false,
-  userInfo: null,
 };
 
 export function reducer(state: AuthState = defaultState, action: Action<any>) {

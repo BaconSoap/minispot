@@ -29,12 +29,12 @@ export class DebugInfo extends React.PureComponent<DebugInfoProps> {
   }
 }
 
-const mapState = ({ player, authentication }: AppState): DebugInfoProps => ({
+const mapState = ({ player, authentication, user }: AppState): DebugInfoProps => ({
   accessToken: authentication.accessToken,
   isConnectedToSpotify: player.isConnectedToSpotify,
-  isPremium: authentication.userInfo ? authentication.userInfo.product === 'premium' : false,
+  isPremium: user.userInfo ? user.userInfo.product === 'premium' : false,
   isReady: player.isReady,
-  userInfo: authentication.userInfo
+  userInfo: user.userInfo
 });
 
 export const DebugInfoContainer = connect(mapState)(DebugInfo);
