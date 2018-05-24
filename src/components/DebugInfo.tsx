@@ -1,7 +1,8 @@
 import { AppState } from 'AppState';
-import { AccessToken, UserInfoDto } from 'authentication/types';
+import { AccessToken } from 'authentication/types';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { UserInfoDto } from 'spotifyTypes';
 
 type DebugInfoProps = {
   accessToken: AccessToken | null;

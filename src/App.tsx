@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Store } from 'redux';
 import { createAppStore } from 'store/createAppStore';
+import { TopTracksContainer } from 'user/TopTracks';
 import './App.scss';
 
 class App extends React.Component {
@@ -32,6 +33,7 @@ class App extends React.Component {
               <AuthControllerContainer />
             </header>
             <Player />
+            <TopTracksContainer />
             <DebugInfoContainer />
             <SpotifyPlaybackManagerContainer />
           </div>
@@ -43,7 +45,6 @@ class App extends React.Component {
   private onSpotifyReady() {
     this.store.dispatch(playerReady());
   }
-
 }
 
 export default App;

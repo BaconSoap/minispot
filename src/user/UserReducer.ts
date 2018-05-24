@@ -1,6 +1,7 @@
-import { UserInfoDto } from 'authentication/types';
-import { USER_INFO_LOADED } from 'user/UserConstants';
+import { UserInfoDto } from 'spotifyTypes';
+import { TOP_TRACKS_LOADED, USER_INFO_LOADED } from 'user/UserConstants';
 import { Action, ReducerMap } from '../helpers';
+import { TopTracksPayload } from './UserActions';
 import { UserState } from './UserState';
 
 const reducers: ReducerMap<UserState> = {
@@ -10,9 +11,14 @@ const reducers: ReducerMap<UserState> = {
       userInfo: payload
     }
   ),
+  [TOP_TRACKS_LOADED]: (state: UserState, { payload }: Action<TopTracksPayload>): UserState => ({
+    ...state,
+    topTracks: payload.tracks,
+  })
 };
 
 export const defaultState: UserState = {
+  topTracks: [],
   userInfo: null,
 };
 

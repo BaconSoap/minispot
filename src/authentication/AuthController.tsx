@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { UserInfoDto } from 'spotifyTypes';
 import { loadUserInfo } from 'user/UserActions';
 import { AppState } from '../AppState';
 import { clientId as secretClientId, redirectUrl } from '../secrets';
 import { authenticationSucceeded } from './AuthActions';
 import { OAuthProvider } from './OAuthProvider';
-import { AccessToken, UserInfoDto } from './types';
+import { AccessToken } from './types';
 
 const actions = {
   authenticationSucceeded,
