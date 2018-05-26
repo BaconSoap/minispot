@@ -38,5 +38,11 @@
     "sass-lint": "^1.12.1",
     "sass-loader": "^7.0.1",
     "typescript": "^2.8.3"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   }
 }
